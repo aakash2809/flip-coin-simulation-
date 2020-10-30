@@ -1,4 +1,5 @@
-#!/bin/bash 
+#!/bin/bash -x
+
 headCount=0
 tailCount=0
 count=0
@@ -27,6 +28,32 @@ echo "Tails won " $tailCount " times "
 if [ $headCount -eq $tailCount ]
 then
 		echo "tie"
+		while [ $(( $headCount  - $tailCount  )) -ne 2 ]
+          do
+					 result=$(( RANDOM%2 ))
+				    if [ $result -eq 1 ]
+   				 then
+          				((headCount++))
+    				else
+          			((tailCount++))
+  				    fi
+
+				 ((count++))
+         done
+
+	if [ $headCount -gt $tailCount  ]
+	then
+        	 win=$(($headCount-$tailCount))
+	       echo "Heads win by " $win
+
+	else
+       	  win=$(($tailCount-$headCount))
+	        echo "Tails win by "$win
+
+	fi
+
+
+
 elif [ $headCount -gt $tailCount  ]
 then
 		win=$(($headCount-$tailCount))
@@ -34,7 +61,5 @@ then
 else
 		 win=$(($tailCount-$headCount))
       echo "Tails win by "$win
-
-
 fi
 
